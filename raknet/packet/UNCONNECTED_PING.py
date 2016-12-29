@@ -1,4 +1,3 @@
-import struct
 from raknet.packet.Packet import Packet
 from raknet.RakLib import RakLib
 
@@ -11,8 +10,13 @@ class UnconnectedPing(Packet):
         self.ping_id = ping_id
 
     def encode(self):
-        self.buffer = RakLib.UNCONNECTED_PING + struct.pack('>q', self.ping_id) + RakLib.MAGIC + struct.pack(
-            '>q', 0)
 
+        self.write_byte(RakLib.UNCONNECTED_PING)
+        self.write_long(self.ping_id)
+        self.write(RakLib.MAGIC)
+
+        # Guid
+        self.write_long(0)
+        
     def decode(self):
         pass
