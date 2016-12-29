@@ -17,6 +17,6 @@ class UnconnectedPing(Packet):
 
         # Guid
         self.write_long(0)
-        
+
     def decode(self):
         pass
