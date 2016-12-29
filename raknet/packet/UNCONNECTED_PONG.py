@@ -1,7 +1,7 @@
 from raknet.packet.Packet import Packet
 
 
-class UNCONNECTED_PONG(Packet):
+class UnconnectedPong(Packet):
 
     def __init__(self):
         super().__init__()

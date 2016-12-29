@@ -3,8 +3,8 @@ import ServerData
 
 from random import randint
 from raknet.RakLib import RakLib
-from raknet.packet.UNCONNECTED_PING import UNCONNECTED_PING
-from raknet.packet.UNCONNECTED_PONG import UNCONNECTED_PONG
+from raknet.packet.UNCONNECTED_PING import UnconnectedPing
+from raknet.packet.UNCONNECTED_PONG import UnconnectedPong
 
 
 class Query:
@@ -32,29 +32,35 @@ class Query:
 
         # get data from the server
         try:
-            ping = UNCONNECTED_PING(randint(1, 999999999))
+            ping = UnconnectedPing(randint(1, 999999999))
             ping.encode()
             self.socket.send(ping.buffer)
 
             buff = self.socket.recv(65565)
 
             if buff[0] is RakLib.UNCONNECTED_PONG:
-                pong = UNCONNECTED_PONG()
+                pong = UnconnectedPong()
                 pong.buffer = buff
                 pong.decode()
 
                 server_data.PING_ID = pong.ping_id
                 server_data.SERVER_ID = pong.server_id
 
-                info = pong.server_info.split(';')
+                # Trim
+                info = pong.server_info.replace('\;', '').split(';')
 
-                if len(info) == 6:
+                if len(info) >= 6:
                     server_data.GAME_ID = info[0]
                     server_data.SERVER_NAME = info[1]
                     server_data.GAME_PROTOCOL = int(info[2])
                     server_data.GAME_VERSION = info[3]
                     server_data.NUM_PLAYERS = int(info[4])
                     server_data.MAX_PLAYERS = int(info[5])
+
+                if len(info) > 6:
+                    server_data.HASH_CODE = info[6]
+                    server_data.MOTD = info[7]
+                    server_data.GAMEMODE = info[8]
 
                 server_data.SUCCESS = True
 
