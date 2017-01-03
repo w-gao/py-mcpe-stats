@@ -1,5 +1,12 @@
-from raknet.packet.Packet import Packet
-from raknet.RakLib import RakLib
+"""a Python software that gets basic information about an MCPE server
+
+UnconnectedPing class
+
+Copyright (c) 2016 w-gao
+"""
+
+from .packet import Packet
+from ..rak_lib import RakLib
 
 
 class UnconnectedPing(Packet):
@@ -10,8 +17,7 @@ class UnconnectedPing(Packet):
         self.ping_id = ping_id
 
     def encode(self):
-
-        self.write_byte(RakLib.UNCONNECTED_PING)
+        self.write_byte(bytes([RakLib.UNCONNECTED_PING]))
         self.write_long(self.ping_id)
         self.write(RakLib.MAGIC)
 

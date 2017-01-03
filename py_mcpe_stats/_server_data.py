@@ -1,3 +1,11 @@
+"""a Python software that gets basic information about an MCPE server
+
+ServerData class
+
+Copyright (c) 2016 w-gao
+"""
+
+
 class ServerData:
 
     # Query status

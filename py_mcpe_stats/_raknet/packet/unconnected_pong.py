@@ -1,4 +1,11 @@
-from raknet.packet.Packet import Packet
+"""a Python software that gets basic information about an MCPE server
+
+UnconnectedPong class
+
+Copyright (c) 2016 w-gao
+"""
+
+from .packet import Packet
 
 
 class UnconnectedPong(Packet):

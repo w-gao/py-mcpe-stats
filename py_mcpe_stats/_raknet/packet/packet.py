@@ -1,9 +1,15 @@
+"""a Python software that gets basic information about an MCPE server
+
+Packet class
+
+Copyright (c) 2016 w-gao
+"""
+
 import struct
 
 
 class Packet:
     def __init__(self):
-
         self.offset = 0
         self.buffer = b''
 
@@ -22,10 +28,6 @@ class Packet:
         buff = bytearray()
         for i in range(length):
             self.offset += 1
-
-            if self.offset > len(self.buffer) - 1:
-                break
-
             buff.append(self.buffer[self.offset])
         return buff
 
@@ -34,18 +36,16 @@ class Packet:
         return self.buffer[self.offset]
 
     def read_short(self):
-        # b = self.read(2)
-        # return ((b[0] & 0xFF) << 8) + (b[1] & 0xFF)
-        return int.from_bytes(self.read(2), byteorder='big', signed=True)
+        return struct.unpack(">H", self.read(2))[0]
 
     def read_triad(self):
-        return int.from_bytes(self.read(3), byteorder='big', signed=True)
+        return struct.unpack('>i', self.read(3) + b'\x00')[0]
 
     def read_int(self):
-        return int.from_bytes(self.read(4), byteorder='big', signed=True)
+        return struct.unpack(">i", self.read(4))[0]
 
     def read_long(self):
-        return int.from_bytes(self.read(8), byteorder='big', signed=True)
+        return struct.unpack(">q", self.read(8))[0]
 
     def read_string(self):
         l = self.read_short()
@@ -58,11 +58,10 @@ class Packet:
         self.buffer += val
 
     def write_short(self, val):
-        # h - signed short
         self.buffer += struct.pack('>h', val)
 
     def write_triad(self, val):
-        self.buffer += struct.pack('>BBB', (val >> 16) & 0xFF, (val >> 8) & 0xFF, val & 0xFF)
+        self.buffer += struct.pack('>i', val)[:3]
 
     def write_int(self, val):
         self.buffer += struct.pack('>i', val)

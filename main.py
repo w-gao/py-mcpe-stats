@@ -1,4 +1,4 @@
-from Query import Query
+from py_mcpe_stats import Query
 
 host = 'localhost'
 port = 19132

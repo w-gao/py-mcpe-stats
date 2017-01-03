@@ -1,10 +1,28 @@
-import socket
-import ServerData
+"""a Python software that gets basic information about an MCPE server
 
+Query class
+
+Usage: Include the following code in your project
+```
+from py_mcpe_stats import Query
+
+host = 'localhost'
+port = 19132
+
+q = Query(host, port)
+server_data = q.query()
+```
+
+Copyright (c) 2016 w-gao
+"""
+
+import socket
 from random import randint
-from raknet.RakLib import RakLib
-from raknet.packet.UNCONNECTED_PING import UnconnectedPing
-from raknet.packet.UNCONNECTED_PONG import UnconnectedPong
+
+from py_mcpe_stats import _server_data
+from ._raknet import RakLib
+from ._raknet import UnconnectedPing
+from ._raknet import UnconnectedPong
 
 
 class Query:
@@ -28,7 +46,7 @@ class Query:
             return None
 
         # Returned data
-        server_data = ServerData.ServerData()
+        server_data = _server_data.ServerData()
 
         # get data from the server
         try:
