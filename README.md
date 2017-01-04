@@ -1,5 +1,5 @@
 # py-mcpe-stats
-[![PyPI](https://img.shields.io/pypi/v/py_mcpe_stats.svg)]()
+[![PyPI](https://img.shields.io/pypi/v/py_mcpe_stats.svg)](https://pypi.python.org/pypi/py_mcpe_stats/)
 
 ![py-mcpe-stats](https://github.com/w-gao/py-mcpe-stats/blob/master/images/logo.png)
 
