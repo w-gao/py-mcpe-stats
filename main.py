@@ -1,3 +1,10 @@
+"""a Python software that gets basic information about an MCPE server
+
+main.py
+
+Copyright (c) 2016 w-gao
+"""
+
 from py_mcpe_stats import Query
 
 host = 'localhost'

@@ -1,7 +1,14 @@
+"""a Python software that gets basic information about an MCPE server
+
+setup.py
+
+Copyright (c) 2016 w-gao
+"""
+
 from setuptools import setup, find_packages
 
 setup(name='py_mcpe_stats',
-      version='0.1.1',
+      version='0.1.2',
       description='a Python software that gets basic information about an MCPE server',
       long_description='a Python software that allows you to ping a Minecraft Pocket:Edition (MCPE) server for basic '
                        'information.',
@@ -20,5 +27,6 @@ setup(name='py_mcpe_stats',
           'Topic :: Software Development :: Libraries :: Python Modules',
           'Topic :: System :: Networking'
       ],
+      keywords='MCPE minecraft mcpeserver raknet',
       packages=find_packages('.')
       )

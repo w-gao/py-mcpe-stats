@@ -67,7 +67,7 @@ class Query:
                 # Trim
                 info = pong.server_info.replace('\;', '').split(';')
 
-                if len(info) >= 6:
+                if len(info) == 6:
                     server_data.GAME_ID = info[0]
                     server_data.SERVER_NAME = info[1]
                     server_data.GAME_PROTOCOL = int(info[2])
