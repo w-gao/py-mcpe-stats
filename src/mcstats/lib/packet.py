@@ -1,26 +1,25 @@
-"""a Python software that gets basic information about an MCPE server
-
-Packet class
-
-Copyright (c) 2016 w-gao
-"""
-
 import struct
 
 
 class Packet:
+    """
+    A class encapsulating the contents of a single network packet to be sent or
+    received through the network. The self.buffer bytes object is the actual
+    contents of the packet, where helper methods such as the read_*() and
+    write_*() can be used to encode and decode the contents.
+    """
     def __init__(self):
         self.offset = 0
         self.buffer = b''
 
-    def encode(self):
+    def encode(self) -> None:
         pass
 
-    def decode(self):
+    def decode(self) -> None:
         self.offset = 0
 
-    def read(self, length):
-
+    def read(self, length) -> bytes:
+        """ Read the given length number of bytes from the buffer."""
         if length < 0:
             self.offset = len(self.buffer) - 1
             return bytes(0)
@@ -47,11 +46,12 @@ class Packet:
     def read_long(self):
         return struct.unpack(">q", self.read(8))[0]
 
-    def read_string(self):
-        l = self.read_short()
-        return self.read(l).decode('utf-8')
+    def read_string(self) -> str:
+        length = self.read_short()
+        return self.read(length).decode('utf-8')
 
-    def write(self, val):
+    def write(self, val: bytes) -> None:
+        """ Write bytes to the buffer."""
         self.buffer += val
 
     def write_byte(self, val):
@@ -70,6 +70,7 @@ class Packet:
         self.buffer += struct.pack('>q', val)
 
     def write_string(self, val):
-        b = val.encode('utf-8')
-        self.write_short(len(b))
-        self.buffer += b
+        if not isinstance(val, bytes):
+            val = val.encode('utf-8')
+        self.write_short(len(val))
+        self.buffer += val
